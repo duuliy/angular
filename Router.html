@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="#/aboutus">关于我们</a> </li>
+        <li><a href="#/product">查看产品</a></li>
+    </ul>
+</nav>
+<div ng-view></div>
+<footer>
+    <h3>页脚</h3>
+</footer>
+<script src="angular-1.2.3/angular.js"></script>
+<script src="angular-1.2.3/angular-route.js"></script>
+<script>
+    var app=angular.module("myapp",['ngRoute']);
+//路由
+    app.config(function ($routeProvider) {
+        $routeProvider.when("/aboutus",{
+            templateUrl:"component/about/aboutus.html",
+            controller:"aboutController"
+        }).when("/product",{
+            templateUrl:"component/product/product.html"
+        }).otherwise({
+            redirectTo:"/Router"
+        })
+
+    })
+    app.controller("aboutController",function ($scope) {
+
+            $scope.studentList="来到这里";
+
+    })
+
+    //发起请求并传参
+//    app.controller("reqController",function ($scope,$routeParams,$http) {
+//
+//        $scope.myid=$routeParams.id
+//
+//        $http.post("/getDetail",{id:$routerParams.id}).then(function (res) {
+//
+//        })
+//
+//    })
+</script>
+</body>
+</html>

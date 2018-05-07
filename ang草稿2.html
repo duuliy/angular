@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div ng-controller="dirCtrl">
+
+    <div lsc></div>
+    <lsc></lsc>
+    <div class="lsc"></div>
+    <button ng-click="myadd()">添加动态指令</button>
+    <div id="msg"></div>
+</div>
+
+<script src="angular-1.2.3/angular.js"></script>
+<script>
+
+    var app=angular.module("myapp",[]);
+    //自定义指令名称
+    app.directive("lsc",function () {
+        return{
+
+//            、、属性A ,元素E,class是C
+            restrict:'AEC',
+
+            template:"<div>"+
+                "<h1>asd</h1>"+
+                "<p>我同意</p>"+
+                "</div>",
+            replace:true
+        }
+    })
+
+    app.controller("dirCtrl",function ($scope,$compile) {
+        $scope.myadd=function () {
+                //创建要添加的元素
+            var newEle= angular.element("<lsc></lsc>")
+            //2.创建动态编译,$compile返回一个函数
+            var cEle=$compile(newEle)($scope)
+            console.log(cEle);
+
+            //.把节点嵌入到msg里面
+            angular.element(document.getElementById("msg")).append(cEle)
+        }
+    })
+</script>
+</body>
+</html>
